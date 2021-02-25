@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Grid } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 // Custom components
 import Text from '../components/Text'

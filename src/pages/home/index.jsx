@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 // Custom components
-import Text from '../components/Text'
+// import Text from '../components/Text'
 import Layout from '../components/Layout'
+import SearchEngine from './components/SearchEngine'
 
 const MainContainer = styled(Grid)`
   height: 100%;
@@ -14,10 +15,10 @@ const MainContainer = styled(Grid)`
 const Home = () => {
   return (
     <Layout>
-      <MainContainer alignContent="flex-start">
-        <Text variant="tiny" color="alt">
-          Welcome!
-        </Text>
+      <MainContainer container alignContent="flex-start">
+        <Grid item xs={8}>
+          <SearchEngine />
+        </Grid>
       </MainContainer>
     </Layout>
   )
