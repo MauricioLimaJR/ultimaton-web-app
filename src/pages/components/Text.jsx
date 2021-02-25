@@ -20,6 +20,8 @@ const Text = ({ variant = 'small', color = 'primary', children }) => {
         return { fontSize: '2rem', fontWeight: 'bold' }
       case 'medium':
         return { fontSize: '1.5rem', fontWeight: 'bold' }
+      case 'tiny':
+        return { fontSize: '0.8rem' }
       case 'small':
       default:
         return {}

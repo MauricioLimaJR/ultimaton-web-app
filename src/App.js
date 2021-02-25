@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import * as colors from './constants/colors'
 // Components
 import Landing from './pages/landing/index'
+import SignUp from './pages/signup/index'
 
 const Canvas = styled.div`
   background-color: ${colors.godGray};
@@ -19,7 +20,8 @@ function App() {
     <Canvas className="App">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route path="/" component={Landing} />
         </Switch>
       </BrowserRouter>
     </Canvas>
