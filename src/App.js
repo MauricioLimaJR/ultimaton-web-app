@@ -1,7 +1,9 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 // Others
 import * as colors from './constants/colors'
+// Components
+import Landing from './pages/landing/index'
 
 const Canvas = styled.div`
   background-color: ${colors.godGray};
@@ -15,7 +17,11 @@ const Canvas = styled.div`
 function App() {
   return (
     <Canvas className="App">
-      <BrowserRouter>{'Ultimaton App'}</BrowserRouter>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+        </Switch>
+      </BrowserRouter>
     </Canvas>
   )
 }

@@ -6,7 +6,6 @@
  */
 
 // Marvel color palete
-
 export const brownDerby = '#4D1518'
 export const oldBrick = '#951E22'
 export const cardinal = '#C72523'
@@ -15,7 +14,7 @@ export const steelBlue = '#4D8AB5'
 export const mirage = '#1E2639'
 
 // Default color palete
-
+export const black = '#000000'
 export const godGray = '#151515'
 export const tundora = '#444444'
 export const white = '#FFFFFF'
