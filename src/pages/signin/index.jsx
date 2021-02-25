@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 // Custom components
 import Text from '../components/Text'
-import SignUpForm from './SignUpForm'
+import SignInForm from './SignInForm'
 // Others
 import UltimatonLogo from '../../static/images/ultimaton.svg'
 
@@ -14,7 +14,7 @@ const MainContainer = styled(Grid)`
   text-align: center;
 `
 
-const SignUp = () => {
+const SignIn = () => {
   const history = useHistory()
 
   return (
@@ -30,23 +30,25 @@ const SignUp = () => {
 
       <Grid item xs={12}>
         <Text variant="medium" color="secondary">
-          Sign up now!
+          Login
         </Text>
-        <Text color="secondary">Few steps to go!</Text>
+        <Text color="secondary">Welcome back, sign in to continue.</Text>
       </Grid>
 
       <Grid item xs={12}>
-        <SignUpForm />
+        <SignInForm />
       </Grid>
 
       <Grid item xs={12} style={{ marginTop: '10px' }}>
         <Text variant="tiny" color="secondary">
-          Already have an account?{' '}
-          <strong onClick={() => history.push('/signin')}>Sign In.</strong>
+          Do not have an account?{' '}
+          <strong onClick={() => history.push('/signup')}>
+            Create an account.
+          </strong>
         </Text>
       </Grid>
     </MainContainer>
   )
 }
 
-export default SignUp
+export default SignIn

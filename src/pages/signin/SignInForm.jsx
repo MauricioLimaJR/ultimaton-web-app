@@ -28,23 +28,15 @@ const CustomTextField = withStyles({
   },
 })(TextField)
 
-const SignUpForm = () => {
+const SingInForm = () => {
   const initialValues = {
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
   }
 
   const validationSchema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required().min(8),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password'), null], 'Passwords must match'),
   })
 
   const onSubmit = async (values, formikBag) => {
@@ -64,44 +56,6 @@ const SignUpForm = () => {
       {({ errors, touched }) => (
         <Form>
           <Grid container direction="row" justify="center">
-            <Grid item xs={12}>
-              {/* Name field */}
-              <Field name="firstName">
-                {({ field }) => (
-                  <CustomTextField
-                    {...field}
-                    error={errors['firstName'] && touched['firstName']}
-                    id="standard-error-helper-text"
-                    label={'First name'}
-                    helperText={
-                      errors['firstName'] && touched['firstName']
-                        ? errors['firstName']
-                        : null
-                    }
-                  />
-                )}
-              </Field>
-            </Grid>
-
-            <Grid item xs={12}>
-              {/* Last name field */}
-              <Field name="lastName">
-                {({ field }) => (
-                  <CustomTextField
-                    {...field}
-                    error={errors['lastName'] && touched['lastName']}
-                    id="standard-error-helper-text"
-                    label={'Last name'}
-                    helperText={
-                      errors['lastName'] && touched['lastName']
-                        ? errors['lastName']
-                        : null
-                    }
-                  />
-                )}
-              </Field>
-            </Grid>
-
             <Grid item xs={12}>
               {/* Email field */}
               <Field name="email">
@@ -141,31 +95,9 @@ const SignUpForm = () => {
               </Field>
             </Grid>
 
-            <Grid item xs={12}>
-              {/* Confirm Password field*/}
-              <Field name="confirmPassword">
-                {({ field }) => (
-                  <CustomTextField
-                    {...field}
-                    error={
-                      errors['confirmPassword'] && touched['confirmPassword']
-                    }
-                    id="standard-error-helper-text"
-                    label={'Confirm Password'}
-                    type="password"
-                    helperText={
-                      errors['confirmPassword'] && touched['confirmPassword']
-                        ? errors['confirmPassword']
-                        : null
-                    }
-                  />
-                )}
-              </Field>
-            </Grid>
-
             {/* Submit btn */}
             <Grid item xs={12} style={{ marginTop: '10px' }}>
-              <Button type="submit">Sing Up</Button>
+              <Button type="submit">Sing In</Button>
             </Grid>
           </Grid>
         </Form>
@@ -174,4 +106,4 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm
+export default SingInForm
