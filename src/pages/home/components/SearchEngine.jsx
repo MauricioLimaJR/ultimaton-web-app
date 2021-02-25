@@ -38,6 +38,7 @@ const MainContainer = styled(Grid)`
 
 const FilterButton = styled(Grid)`
   border: 1px solid ${colors.oldBrick};
+  border-radius: 3px;
   background-color: ${colors.black};
   padding: 8px;
   cursor: pointer;
@@ -120,11 +121,10 @@ const SearchEngine = () => {
                         error={errors['query'] && touched['query']}
                         id="standard-error-helper-text"
                         label={''}
-                        placeholder={'Type to search..'}
-                        helperText={
+                        placeholder={
                           errors['query'] && touched['query']
                             ? errors['query']
-                            : null
+                            : '...'
                         }
                       />
                     )}
