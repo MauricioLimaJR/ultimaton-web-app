@@ -13,7 +13,7 @@ const StyledText = styled.p`
  * @param {String} variant - large, medium, small (default)
  * @param {String} color - primary (default), secondary, alt
  */
-const Text = ({ variant = 'small', color = 'primary', children }) => {
+const Text = ({ variant = 'small', color = 'primary', children, ...props }) => {
   const setVariant = (variant) => {
     switch (variant) {
       case 'large':
@@ -41,7 +41,7 @@ const Text = ({ variant = 'small', color = 'primary', children }) => {
       case 'primary':
       default:
         return {
-          backgroundColor: colors.pumice,
+          color: colors.pumice,
         }
     }
   }
@@ -51,7 +51,11 @@ const Text = ({ variant = 'small', color = 'primary', children }) => {
     ...setColor(color),
   }
 
-  return <StyledText style={customStyle}>{children}</StyledText>
+  return (
+    <StyledText style={customStyle} {...props}>
+      {children}
+    </StyledText>
+  )
 }
 
 Text.propTypes = {

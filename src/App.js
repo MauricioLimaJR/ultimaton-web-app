@@ -6,6 +6,7 @@ import * as colors from './constants/colors'
 import Landing from './pages/landing/index'
 import SignUp from './pages/signup/index'
 import SignIn from './pages/signin/index'
+import Home from './pages/home/index'
 
 const Canvas = styled.div`
   background-color: ${colors.godGray};
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/home" component={Home} />
           <Route path="/" component={Landing} />
         </Switch>
       </BrowserRouter>
