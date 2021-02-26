@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 // Custom components
 import Text from '../components/Text'
 import SignInForm from './SignInForm'
+import withNoAuth from '../components/hocs/withNoAuth'
 // Others
 import UltimatonLogo from '../../static/images/ultimaton.svg'
 
@@ -51,4 +52,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default withNoAuth(SignIn)

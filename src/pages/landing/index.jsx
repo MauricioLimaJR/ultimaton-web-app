@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 // Custom components
 import Button from '../components/Button'
 import Text from '../components/Text'
+import withNoAuth from '../components/hocs/withNoAuth'
 // Others
 import UltimatonLogo from '../../static/images/ultimaton.svg'
 import Hulk from '../../static/images/hulk.jpeg'
@@ -56,4 +57,4 @@ const Landing = () => {
   )
 }
 
-export default Landing
+export default withNoAuth(Landing)

@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 // Custom components
-import Text from '../components/Text'
 import SignUpForm from './SignUpForm'
+import Text from '../components/Text'
+import withNoAuth from '../components/hocs/withNoAuth'
 // Others
 import UltimatonLogo from '../../static/images/ultimaton.svg'
 
@@ -49,4 +50,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default withNoAuth(SignUp)

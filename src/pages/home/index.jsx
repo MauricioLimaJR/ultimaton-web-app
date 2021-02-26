@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 // Custom components
-// import Text from '../components/Text'
 import Carousell from '../components/Carousell'
 import Layout from '../components/Layout'
 import SearchEngine from './components/SearchEngine'
+import withAuth from '../components/hocs/withAuth'
+// Others
 import IronMan from '../../static/images/iron-man.jpg'
 
 const MainContainer = styled(Grid)`
@@ -46,4 +47,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default withAuth(Home)
