@@ -34,6 +34,7 @@ const MainContainer = styled(Grid)`
   height: 100%;
   padding: 15px 10px;
   text-align: center;
+  z-index: 1;
 `
 
 const FilterButton = styled(Grid)`
