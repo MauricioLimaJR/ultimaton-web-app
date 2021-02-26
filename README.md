@@ -1,6 +1,7 @@
 # Ultimaton Web App
 
 That's the mobile first Ultimaton application to search and favourite characters and comics from Marvel's develop API.
+- Rigth now, this application will only run well in the mobile way. So, make sure open the browser dev tools and chage screen to mobile if you are in desktop
 
 ## About it structure
 
