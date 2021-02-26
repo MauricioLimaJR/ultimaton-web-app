@@ -23,6 +23,7 @@ export const getToken = () => cookie.get('token')
  * tabs.
  */
 export const removeToken = (router) => {
+  console.log('ahhhhhhhhhhh')
   cookie.remove('token')
   router.push('/')
 }

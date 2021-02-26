@@ -1,12 +1,15 @@
 import React from 'react'
 import * as yup from 'yup'
+import { useHistory } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, TextField } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 // Custom components
 import Button from '../components/Button'
 // Others
+import Toast from '../../lib/toastfy'
 import * as colors from '../../constants/colors'
+import { signup } from '../../core/operations'
 
 const CustomTextField = withStyles({
   root: {
@@ -29,17 +32,19 @@ const CustomTextField = withStyles({
 })(TextField)
 
 const SignUpForm = () => {
+  const history = useHistory()
+
   const initialValues = {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
   }
 
   const validationSchema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
+    firstname: yup.string().required(),
+    lastname: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required().min(8),
     confirmPassword: yup
@@ -47,11 +52,15 @@ const SignUpForm = () => {
       .oneOf([yup.ref('password'), null], 'Passwords must match'),
   })
 
-  const onSubmit = async (values, formikBag) => {
+  const onSubmit = async (values) => {
     try {
-      console.log(values, formikBag)
+      const { firstname, lastname, email, password } = values
+      await signup(firstname, lastname, email, password)
+
+      history.push('/home')
     } catch (err) {
-      console.log('Error: ', err)
+      console.log('asaa', err)
+      Toast.error(err.error || 'Something went wrong!')
     }
   }
 
@@ -66,16 +75,16 @@ const SignUpForm = () => {
           <Grid container direction="row" justify="center">
             <Grid item xs={12}>
               {/* Name field */}
-              <Field name="firstName">
+              <Field name="firstname">
                 {({ field }) => (
                   <CustomTextField
                     {...field}
-                    error={errors['firstName'] && touched['firstName']}
+                    error={errors['firstname'] && touched['firstname']}
                     id="standard-error-helper-text"
                     label={'First name'}
                     helperText={
-                      errors['firstName'] && touched['firstName']
-                        ? errors['firstName']
+                      errors['firstname'] && touched['firstname']
+                        ? errors['firstname']
                         : null
                     }
                   />
@@ -85,16 +94,16 @@ const SignUpForm = () => {
 
             <Grid item xs={12}>
               {/* Last name field */}
-              <Field name="lastName">
+              <Field name="lastname">
                 {({ field }) => (
                   <CustomTextField
                     {...field}
-                    error={errors['lastName'] && touched['lastName']}
+                    error={errors['lastname'] && touched['lastname']}
                     id="standard-error-helper-text"
                     label={'Last name'}
                     helperText={
-                      errors['lastName'] && touched['lastName']
-                        ? errors['lastName']
+                      errors['lastname'] && touched['lastname']
+                        ? errors['lastname']
                         : null
                     }
                   />

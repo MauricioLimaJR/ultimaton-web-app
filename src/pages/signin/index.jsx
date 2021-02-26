@@ -19,7 +19,7 @@ const SignIn = () => {
   const history = useHistory()
 
   return (
-    <MainContainer container alignContent="flex-start">
+    <MainContainer container spacing={4} alignContent="center">
       <Grid item xs={12} style={{ paddingTop: '5%' }}>
         <img
           src={UltimatonLogo}

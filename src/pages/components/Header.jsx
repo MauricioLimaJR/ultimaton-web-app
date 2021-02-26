@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 import Text from '../components/Text'
 // Others
 import * as colors from '../../constants/colors'
+import { removeToken } from '../../lib/auth'
 import UltimatonLogo from '../../static/images/ultimaton.svg'
 
 const HeaderContainer = styled(Grid)`
@@ -40,12 +41,10 @@ const StyledItem = styled(Grid)`
 const Header = () => {
   const [navMenu, showNavMenu] = React.useState(false)
   const history = useHistory()
-  console.log(history)
 
   const menuOptions = [
     { title: 'Profile', link: '/profile' },
     { title: 'Favourites', link: '/favourites' },
-    { title: 'Sign out', link: '/' },
   ]
 
   return (
@@ -70,7 +69,6 @@ const Header = () => {
             fontSize="large"
             color="error"
           />
-          {/* <p onClick={() => showNavMenu(!navMenu)}>Menu</p> */}
         </Grid>
 
         {navMenu ? (
@@ -91,6 +89,11 @@ const Header = () => {
                   <Text variant="large">{option.title}</Text>
                 </StyledItem>
               ))}
+
+              {/* Sign out option */}
+              <StyledItem item xs={12} onClick={() => removeToken(history)}>
+                <Text variant="large">Sign out</Text>
+              </StyledItem>
 
               <Grid item xs={12}>
                 <Text onClick={() => showNavMenu(!navMenu)}>Close</Text>

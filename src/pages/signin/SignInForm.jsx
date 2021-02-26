@@ -1,12 +1,15 @@
 import React from 'react'
 import * as yup from 'yup'
+import { useHistory } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, TextField } from '@material-ui/core'
 import { Formik, Form, Field } from 'formik'
 // Custom components
 import Button from '../components/Button'
 // Others
+import Toast from '../../lib/toastfy'
 import * as colors from '../../constants/colors'
+import { signin } from '../../core/operations'
 
 const CustomTextField = withStyles({
   root: {
@@ -29,6 +32,8 @@ const CustomTextField = withStyles({
 })(TextField)
 
 const SingInForm = () => {
+  const history = useHistory()
+
   const initialValues = {
     email: '',
     password: '',
@@ -39,11 +44,14 @@ const SingInForm = () => {
     password: yup.string().required().min(8),
   })
 
-  const onSubmit = async (values, formikBag) => {
+  const onSubmit = async (values) => {
     try {
-      console.log(values, formikBag)
+      const { email, password } = values
+      await signin(email, password)
+
+      history.push('/home')
     } catch (err) {
-      console.log('Error: ', err)
+      Toast.error(err.error || 'Something went wrong!')
     }
   }
 
