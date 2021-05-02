@@ -52,3 +52,21 @@ export const signin = async (email, password) => {
     throw err.response
   }
 }
+
+/**
+ * Initial set of characters and comics
+ *
+ * @param {number} limit - query limit
+ *
+ * @returns {Object} - logged user
+ */
+export const getInitialSet = async (limit = 10) => {
+  try {
+    const response = await api.get(`/marvel/initial-set?limit=${limit}`)
+
+    return response.data
+  } catch (err) {
+    console.error(err.response)
+    throw err.response
+  }
+}

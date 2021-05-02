@@ -7,7 +7,7 @@ import Layout from '../components/Layout'
 import SearchEngine from './components/SearchEngine'
 import withAuth from '../components/hocs/withAuth'
 // Others
-import IronMan from '../../static/images/iron-man.jpg'
+import { getInitialSet } from '../../core/operations'
 
 const MainContainer = styled(Grid)`
   height: 100%;
@@ -16,12 +16,14 @@ const MainContainer = styled(Grid)`
 `
 
 const Home = () => {
-  const elements = [
-    { img: IronMan },
-    { img: IronMan },
-    { img: IronMan },
-    { img: IronMan },
-  ]
+  const [characters, setCharacters] = React.useState([])
+  const [comics, setComics] = React.useState([])
+
+  React.useEffect(async () => {
+    const initialSetData = await getInitialSet(10)
+    setCharacters(initialSetData.characters)
+    setComics(initialSetData.comics)
+  }, [])
 
   return (
     <Layout>
@@ -29,18 +31,18 @@ const Home = () => {
         container
         justify="center"
         alignContent="flex-start"
-        spacing={4}
+        // spacing={2}
       >
         <Grid item xs={8}>
           <SearchEngine />
         </Grid>
 
         <Grid item xs={12}>
-          <Carousell title="Characters" data={elements} />
+          <Carousell title="Characters" data={characters} />
         </Grid>
 
         <Grid item xs={12}>
-          <Carousell title="Comics" data={elements} />
+          <Carousell title="Comics" data={comics} />
         </Grid>
       </MainContainer>
     </Layout>

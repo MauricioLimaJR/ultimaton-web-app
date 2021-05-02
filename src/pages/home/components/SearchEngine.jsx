@@ -41,7 +41,7 @@ const FilterButton = styled(Grid)`
   border: 1px solid ${colors.oldBrick};
   border-radius: 3px;
   background-color: ${colors.black};
-  padding: 8px;
+  padding: 8px 1px;
   cursor: pointer;
 `
 
@@ -65,7 +65,6 @@ const SearchEngine = () => {
   }
 
   const selected = {
-    fontSize: '110%',
     color: colors.white,
     backgroundColor: colors.oldBrick,
     border: `1px solid ${colors.black}`,
