@@ -24,8 +24,8 @@ export const signup = async (firstname, lastname, email, password) => {
       auth.registerToken(token.token)
     }
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err.response)
+    throw err.response
   }
 }
 
@@ -48,7 +48,7 @@ export const signin = async (email, password) => {
       auth.registerToken(token.token)
     }
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err.response)
+    throw err.response
   }
 }
