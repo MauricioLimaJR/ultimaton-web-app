@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Grid } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core'
 // Custom components
 import Carousell from '../components/Carousell'
 import ItemList from '../components/ItemsList'
@@ -9,6 +9,7 @@ import SearchEngine from './components/SearchEngine'
 import withAuth from '../components/hocs/withAuth'
 // Others
 import { getInitialSet } from '../../core/operations'
+import './index.css'
 
 const MainContainer = styled(Grid)`
   height: 100%;
@@ -32,7 +33,12 @@ const Home = () => {
 
   return (
     <Layout>
-      <MainContainer container justify="center" alignContent="flex-start">
+      <MainContainer
+        container
+        justify="center"
+        alignContent="flex-start"
+        className="gradientBackground"
+      >
         <Grid item xs={10}>
           <SearchEngine
             changeSearchStatus={(status) => setIsSearching(status)}
@@ -41,9 +47,17 @@ const Home = () => {
           />
         </Grid>
 
-        {isSearching ? (
+        {/* Display search result list or loading */}
+        {isSearching && !charactersResult && !comicsResult ? (
+          <Grid item xs={12}>
+            <CircularProgress />
+          </Grid>
+        ) : isSearching ? (
           <ItemList characters={charactersResult} comics={comicsResult} />
-        ) : (
+        ) : null}
+
+        {/* Display inital set of items or loading */}
+        {!isSearching && characters.length > 0 && comics.length > 0 ? (
           <>
             <Grid item xs={12}>
               <Carousell title="Characters" data={characters} />
@@ -53,7 +67,11 @@ const Home = () => {
               <Carousell title="Comics" data={comics} />
             </Grid>
           </>
-        )}
+        ) : !isSearching ? (
+          <Grid item xs={12}>
+            <CircularProgress />
+          </Grid>
+        ) : null}
       </MainContainer>
     </Layout>
   )

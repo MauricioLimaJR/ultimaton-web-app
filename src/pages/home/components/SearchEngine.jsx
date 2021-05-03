@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as yup from 'yup'
 import { withStyles } from '@material-ui/core/styles'
 import { IconButton, Grid, TextField } from '@material-ui/core'
-import { Search as SearchIcon } from '@material-ui/icons'
+import { Search as SearchIcon, Close as CloseIcon } from '@material-ui/icons'
 import { Formik, Form, Field } from 'formik'
 // Custom components
 import Text from '../../components/Text'
@@ -25,6 +25,7 @@ const CustomTextField = withStyles({
     '& .MuiInput-input': {
       color: `${colors.white}`,
       backgroundColor: `${colors.brownDerby}`,
+      paddingLeft: '5px',
     },
     '& .MuiInput-underline:after': {
       borderBottomColor: `${colors.white}`,
@@ -62,13 +63,10 @@ const SearchEngine = ({
     query: yup.string().required('Type something'),
   })
 
-  const onSubmit = async (values, formikBag) => {
-    try {
-      const { query } = values
-      console.log(query, formikBag)
-    } catch (err) {
-      console.log('Error: ', err)
-    }
+  const clearQuery = (event) => {
+    setQuery('')
+    event.target.value = ''
+    handleChange(event)
   }
 
   const handleChange = async (event) => {
@@ -129,17 +127,17 @@ const SearchEngine = ({
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onSubmit}
+          onSubmit={() => {}}
         >
           {({ errors, touched }) => (
             <Form>
               <Grid
                 container
                 direction="row"
-                justify="center"
+                justify="flex-end"
                 alignItems="center"
               >
-                <Grid item xs={9}>
+                <Grid item xs={8} sm={9}>
                   <Field name="query">
                     {({ field }) => (
                       <CustomTextField
@@ -160,10 +158,16 @@ const SearchEngine = ({
                 </Grid>
 
                 {/* Submit button */}
-                <Grid item xs={3}>
-                  <IconButton type="submit">
-                    <SearchIcon fontSize="large" color="error" />
-                  </IconButton>
+                <Grid item xs={'auto'}>
+                  {query.length > 0 ? (
+                    <IconButton onClick={clearQuery}>
+                      <CloseIcon fontSize="large" color="error" />
+                    </IconButton>
+                  ) : (
+                    <IconButton>
+                      <SearchIcon fontSize="large" color="error" />
+                    </IconButton>
+                  )}
                 </Grid>
               </Grid>
             </Form>
