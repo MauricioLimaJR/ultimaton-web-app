@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 // Custom components
 import Carousell from '../components/Carousell'
+import ItemList from '../components/ItemsList'
 import Layout from '../components/Layout'
 import SearchEngine from './components/SearchEngine'
 import withAuth from '../components/hocs/withAuth'
@@ -18,6 +19,10 @@ const MainContainer = styled(Grid)`
 const Home = () => {
   const [characters, setCharacters] = React.useState([])
   const [comics, setComics] = React.useState([])
+  // Search items
+  const [charactersResult, setCharactersResult] = React.useState(null)
+  const [comicsResult, setComicsResult] = React.useState(null)
+  const [isSearching, setIsSearching] = React.useState(false)
 
   React.useEffect(async () => {
     const initialSetData = await getInitialSet(10)
@@ -27,23 +32,28 @@ const Home = () => {
 
   return (
     <Layout>
-      <MainContainer
-        container
-        justify="center"
-        alignContent="flex-start"
-        // spacing={2}
-      >
-        <Grid item xs={8}>
-          <SearchEngine />
+      <MainContainer container justify="center" alignContent="flex-start">
+        <Grid item xs={10}>
+          <SearchEngine
+            changeSearchStatus={(status) => setIsSearching(status)}
+            handleCharactersSearch={setCharactersResult}
+            handleComicsSearch={setComicsResult}
+          />
         </Grid>
 
-        <Grid item xs={12}>
-          <Carousell title="Characters" data={characters} />
-        </Grid>
+        {isSearching ? (
+          <ItemList characters={charactersResult} comics={comicsResult} />
+        ) : (
+          <>
+            <Grid item xs={12}>
+              <Carousell title="Characters" data={characters} />
+            </Grid>
 
-        <Grid item xs={12}>
-          <Carousell title="Comics" data={comics} />
-        </Grid>
+            <Grid item xs={12}>
+              <Carousell title="Comics" data={comics} />
+            </Grid>
+          </>
+        )}
       </MainContainer>
     </Layout>
   )
