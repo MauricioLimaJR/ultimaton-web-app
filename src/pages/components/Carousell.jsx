@@ -34,7 +34,7 @@ const Legend = styled.p`
   max-height: 5vh;
 `
 
-const Carousell = ({ title, data }) => {
+const Carousell = ({ title, type, data }) => {
   const history = useHistory()
 
   return (
@@ -50,7 +50,9 @@ const Carousell = ({ title, data }) => {
           {data.map((element, index) => (
             <div key={index}>
               <Image
-                onClick={() => history.push()}
+                onClick={() =>
+                  history.push(`/${type.toLowerCase()}/${element.id}`)
+                }
                 src={getImagePath(element, 'portrait_medium')}
               />
 
@@ -65,6 +67,7 @@ const Carousell = ({ title, data }) => {
 
 Carousell.propTypes = {
   title: PropTypes.string,
+  type: PropTypes.string,
   data: PropTypes.array,
 }
 

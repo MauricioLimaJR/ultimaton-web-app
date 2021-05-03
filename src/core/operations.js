@@ -94,3 +94,24 @@ export const marvelItemsSearch = async (query, characters, comics) => {
     throw err.response
   }
 }
+
+/**
+ * Search marvel's character or comic specific details
+ *
+ * @param {string} id - item id
+ * @param {string} type - 'character' or 'comic'
+ *
+ * @returns {Object} - logged user
+ */
+export const getMarvelItem = async (id, type) => {
+  try {
+    const url = `/marvel/${type}/${id}`
+
+    const response = await api.get(url)
+
+    return response.data
+  } catch (err) {
+    console.error(err.response)
+    throw err.response
+  }
+}

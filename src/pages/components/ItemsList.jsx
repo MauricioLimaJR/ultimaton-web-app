@@ -32,7 +32,7 @@ const Title = styled.p`
   margin: 0;
 `
 
-const Legend = styled.p`
+const Description = styled.p`
   margin: 0;
   font-size: 0.9rem;
   white-space: nowrap;
@@ -41,18 +41,16 @@ const Legend = styled.p`
 `
 
 // eslint-disable-next-line react/prop-types
-const RowItem = ({ imagePath, title, description }) => {
-  const history = useHistory()
-
+const RowItem = ({ imagePath, title, description, handleClick }) => {
   return (
     <Grid container>
       <Grid xs={3}>
-        <Image onClick={() => history.push('/home')} src={imagePath} />
+        <Image onClick={handleClick} src={imagePath} />
       </Grid>
 
       <Grid xs={6}>
-        <Title>{title}</Title>
-        <Legend>{description}</Legend>
+        <Title onClick={handleClick}>{title}</Title>
+        <Description>{description}</Description>
       </Grid>
 
       <Grid xs={2}>
@@ -63,6 +61,7 @@ const RowItem = ({ imagePath, title, description }) => {
 }
 
 const ItemsList = ({ characters, comics }) => {
+  const history = useHistory()
   const fullView = !characters || !comics
 
   return (
@@ -88,6 +87,7 @@ const ItemsList = ({ characters, comics }) => {
                   imagePath={getImagePath(character, 'standard_small')}
                   title={getNameOrTitle(character)}
                   description={character.description}
+                  handleClick={() => history.push(`/character/${character.id}`)}
                 />
               ))}
             </VerticalScroll>
@@ -111,6 +111,7 @@ const ItemsList = ({ characters, comics }) => {
                   imagePath={getImagePath(comic, 'standard_small')}
                   title={getNameOrTitle(comic)}
                   description={comic.description}
+                  handleClick={() => history.push(`/comic/${comic.id}`)}
                 />
               ))}
             </VerticalScroll>

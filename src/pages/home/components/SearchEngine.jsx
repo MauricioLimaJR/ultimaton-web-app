@@ -69,6 +69,11 @@ const SearchEngine = ({
     handleChange(event)
   }
 
+  const iconSearchSubmit = () => {
+    const event = { target: { value: query } }
+    handleChange(event)
+  }
+
   const handleChange = async (event) => {
     setQuery(event.target.value)
 
@@ -134,10 +139,10 @@ const SearchEngine = ({
               <Grid
                 container
                 direction="row"
-                justify="flex-end"
+                justify="center"
                 alignItems="center"
               >
-                <Grid item xs={8} sm={9}>
+                <Grid item xs={7} sm={8}>
                   <Field name="query">
                     {({ field }) => (
                       <CustomTextField
@@ -158,16 +163,18 @@ const SearchEngine = ({
                 </Grid>
 
                 {/* Submit button */}
-                <Grid item xs={'auto'}>
-                  {query.length > 0 ? (
+                {query.length > 0 ? (
+                  <Grid item xs={2}>
                     <IconButton onClick={clearQuery}>
                       <CloseIcon fontSize="large" color="error" />
                     </IconButton>
-                  ) : (
-                    <IconButton>
-                      <SearchIcon fontSize="large" color="error" />
-                    </IconButton>
-                  )}
+                  </Grid>
+                ) : null}
+
+                <Grid item xs={2}>
+                  <IconButton onClick={iconSearchSubmit}>
+                    <SearchIcon fontSize="large" color="error" />
+                  </IconButton>
                 </Grid>
               </Grid>
             </Form>

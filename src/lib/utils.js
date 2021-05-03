@@ -1,5 +1,4 @@
 export const getImagePath = (element, variant) => {
-  console.log(element.thumbnail.path)
   const url = `${element.thumbnail.path}/${variant}.${element.thumbnail.extension}`
   return url
 }

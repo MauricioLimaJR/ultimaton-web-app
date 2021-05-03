@@ -60,11 +60,15 @@ const Home = () => {
         {!isSearching && characters.length > 0 && comics.length > 0 ? (
           <>
             <Grid item xs={12}>
-              <Carousell title="Characters" data={characters} />
+              <Carousell
+                title="Characters"
+                type="character"
+                data={characters}
+              />
             </Grid>
 
             <Grid item xs={12}>
-              <Carousell title="Comics" data={comics} />
+              <Carousell title="Comics" type="comic" data={comics} />
             </Grid>
           </>
         ) : !isSearching ? (

@@ -62,6 +62,7 @@ const Header = () => {
             width="90px"
             height="45px"
             alt="Ultimaton logo"
+            onClick={() => history.push('/')}
           />
         </Grid>
         <Grid item xs={2}>
