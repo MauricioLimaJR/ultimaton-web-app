@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import * as yup from 'yup'
 import { withStyles } from '@material-ui/core/styles'
 import { IconButton, Grid, TextField } from '@material-ui/core'
@@ -8,6 +9,7 @@ import { Formik, Form, Field } from 'formik'
 // Custom components
 import Text from '../../components/Text'
 import * as colors from '../../../constants/colors'
+import { marvelItemsSearch } from '../../../core/operations'
 
 const CustomTextField = withStyles({
   root: {
@@ -34,21 +36,27 @@ const MainContainer = styled(Grid)`
   height: 100%;
   padding: 15px 10px;
   text-align: center;
+  z-index: 1;
 `
 
 const FilterButton = styled(Grid)`
   border: 1px solid ${colors.oldBrick};
   border-radius: 3px;
   background-color: ${colors.black};
-  padding: 8px;
+  padding: 8px 1px;
   cursor: pointer;
 `
 
-const SearchEngine = () => {
+const SearchEngine = ({
+  changeSearchStatus,
+  handleCharactersSearch,
+  handleComicsSearch,
+}) => {
   const [searchCharacters, setSearchCharacters] = React.useState(false)
   const [searchComics, setSearchComics] = React.useState(true)
+  const [query, setQuery] = React.useState('')
 
-  const initialValues = { query: '' }
+  const initialValues = { query }
 
   const validationSchema = yup.object().shape({
     query: yup.string().required('Type something'),
@@ -63,8 +71,27 @@ const SearchEngine = () => {
     }
   }
 
+  const handleChange = async (event) => {
+    setQuery(event.target.value)
+
+    if (event.target.value.length > 0) changeSearchStatus(true)
+    else changeSearchStatus(false)
+
+    const result = await marvelItemsSearch(
+      event.target.value,
+      searchCharacters,
+      searchComics
+    )
+
+    if (searchCharacters && result.charactersList)
+      handleCharactersSearch(result.charactersList)
+    else handleCharactersSearch(null)
+
+    if (searchComics && result.comicsList) handleComicsSearch(result.comicsList)
+    else handleComicsSearch(null)
+  }
+
   const selected = {
-    fontSize: '110%',
     color: colors.white,
     backgroundColor: colors.oldBrick,
     border: `1px solid ${colors.black}`,
@@ -113,7 +140,6 @@ const SearchEngine = () => {
                 alignItems="center"
               >
                 <Grid item xs={9}>
-                  {/* Email field */}
                   <Field name="query">
                     {({ field }) => (
                       <CustomTextField
@@ -126,6 +152,8 @@ const SearchEngine = () => {
                             ? errors['query']
                             : '...'
                         }
+                        value={query}
+                        onChange={handleChange}
                       />
                     )}
                   </Field>
@@ -144,6 +172,12 @@ const SearchEngine = () => {
       </Grid>
     </MainContainer>
   )
+}
+
+SearchEngine.propTypes = {
+  changeSearchStatus: PropTypes.func,
+  handleCharactersSearch: PropTypes.func,
+  handleComicsSearch: PropTypes.func,
 }
 
 export default SearchEngine

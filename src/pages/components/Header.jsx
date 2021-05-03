@@ -21,6 +21,7 @@ const NavMenuCanvas = styled(Grid)`
   width: 100%;
   position: absolute;
   top: 60px;
+  z-index: 9;
 `
 
 const NavMenuShadow = styled(Grid)`

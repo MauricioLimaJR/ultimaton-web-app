@@ -9,6 +9,7 @@ import Button from '../components/Button'
 // Others
 import Toast from '../../lib/toastfy'
 import * as colors from '../../constants/colors'
+import Errors from '../../constants/errors'
 import { signin } from '../../core/operations'
 
 const CustomTextField = withStyles({
@@ -51,7 +52,10 @@ const SingInForm = () => {
 
       history.push('/home')
     } catch (err) {
-      Toast.error(err.error || 'Something went wrong!')
+      if (err.status === 404) {
+        return Toast.error(Errors.userNotFoundOrNeverCreated)
+      }
+      Toast.error(Errors.common)
     }
   }
 

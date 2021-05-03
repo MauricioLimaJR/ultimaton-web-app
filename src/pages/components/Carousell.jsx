@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 // Custom components
-import Text from '../components/Text'
 import * as colors from '../../constants/colors'
+import Text from '../components/Text'
+import { getImagePath, getNameOrTitle } from '../../lib/utils'
 
 const MainContainer = styled(Grid)`
   height: 100%;
@@ -20,15 +21,24 @@ const HorizontalScroll = styled.div`
 `
 
 const Image = styled.img`
-  border: 1px solid ${colors.black};
+  border: 2px solid ${colors.black};
+  margin-right: 2px;
   cursor: pointer;
+`
+
+const Legend = styled.p`
+  margin: 0;
+  font-size: 0.9rem;
+  width: 100px;
+  overflow: hidden;
+  max-height: 5vh;
 `
 
 const Carousell = ({ title, data }) => {
   const history = useHistory()
 
   return (
-    <MainContainer container justify="flex-start" spacing={2}>
+    <MainContainer container justify="flex-start" spacing={1}>
       <Grid item xs={'auto'}>
         <Text variant="medium" color="secondary">
           {title}
@@ -38,13 +48,14 @@ const Carousell = ({ title, data }) => {
       <Grid item xs={12}>
         <HorizontalScroll>
           {data.map((element, index) => (
-            <Image
-              key={index}
-              onClick={() => history.push()}
-              src={element.img}
-              width="125px"
-              height="125px"
-            />
+            <div key={index}>
+              <Image
+                onClick={() => history.push()}
+                src={getImagePath(element, 'portrait_medium')}
+              />
+
+              <Legend>{getNameOrTitle(element)}</Legend>
+            </div>
           ))}
         </HorizontalScroll>
       </Grid>

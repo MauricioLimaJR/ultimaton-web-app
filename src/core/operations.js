@@ -24,8 +24,8 @@ export const signup = async (firstname, lastname, email, password) => {
       auth.registerToken(token.token)
     }
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err.response)
+    throw err.response
   }
 }
 
@@ -48,7 +48,49 @@ export const signin = async (email, password) => {
       auth.registerToken(token.token)
     }
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err.response)
+    throw err.response
+  }
+}
+
+/**
+ * Initial set of characters and comics
+ *
+ * @param {number} limit - query limit
+ *
+ * @returns {Object} - logged user
+ */
+export const getInitialSet = async (limit = 10) => {
+  try {
+    const response = await api.get(`/marvel/initial-set?limit=${limit}`)
+
+    return response.data
+  } catch (err) {
+    console.error(err.response)
+    throw err.response
+  }
+}
+
+/**
+ * Search marvel's characters and comics
+ *
+ * @param {string} query - string query
+ * @param {bool} characters - query param
+ * @param {bool} comics - query param
+ *
+ * @returns {Object} - logged user
+ */
+export const marvelItemsSearch = async (query, characters, comics) => {
+  try {
+    let url = `/marvel?query=${query}&limit=10`
+    if (characters) url = `${url}&characters=true`
+    if (comics) url = `${url}&comics=true`
+
+    const response = await api.get(url)
+
+    return response.data
+  } catch (err) {
+    console.error(err.response)
+    throw err.response
   }
 }

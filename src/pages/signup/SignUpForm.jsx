@@ -9,6 +9,7 @@ import Button from '../components/Button'
 // Others
 import Toast from '../../lib/toastfy'
 import * as colors from '../../constants/colors'
+import Errors from '../../constants/errors'
 import { signup } from '../../core/operations'
 
 const CustomTextField = withStyles({
@@ -59,8 +60,10 @@ const SignUpForm = () => {
 
       history.push('/home')
     } catch (err) {
-      console.log('asaa', err)
-      Toast.error(err.error || 'Something went wrong!')
+      if (err.status === 409) {
+        return Toast.error(Errors.emailAlreadyUsed)
+      }
+      Toast.error(Errors.common)
     }
   }
 
