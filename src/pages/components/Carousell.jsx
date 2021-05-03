@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import { Grid } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 // Custom components
-import Text from '../components/Text'
 import * as colors from '../../constants/colors'
+import Text from '../components/Text'
+import { getImagePath, getNameOrTitle } from '../../lib/utils'
 
 const MainContainer = styled(Grid)`
   height: 100%;
@@ -36,16 +37,6 @@ const Legend = styled.p`
 const Carousell = ({ title, data }) => {
   const history = useHistory()
 
-  const getImagePath = (element, variant) => {
-    const url = `${element.thumbnail.path}/${variant}.${element.thumbnail.extension}`
-    return url
-  }
-
-  const getLegendParsed = (element) => {
-    const legend = element.name || element.title
-    return legend.length > 24 ? legend.substr(0, 25) + '...' : legend
-  }
-
   return (
     <MainContainer container justify="flex-start" spacing={1}>
       <Grid item xs={'auto'}>
@@ -59,12 +50,11 @@ const Carousell = ({ title, data }) => {
           {data.map((element, index) => (
             <div key={index}>
               <Image
-                key={index}
                 onClick={() => history.push()}
                 src={getImagePath(element, 'portrait_medium')}
               />
 
-              <Legend>{getLegendParsed(element)}</Legend>
+              <Legend>{getNameOrTitle(element)}</Legend>
             </div>
           ))}
         </HorizontalScroll>
