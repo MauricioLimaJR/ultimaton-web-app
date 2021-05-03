@@ -1,0 +1,7 @@
+.gradientBackground {
+  background-image: linear-gradient(
+    black,
+    #151515,
+    #151515
+  );
+}
